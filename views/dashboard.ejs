@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, <%= user.displayName %>!</h1>
+
+        <form id="weatherForm">
+            <input type="text" id="cityInput" name="city" placeholder="Enter city">
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <div id="weatherResult"></div>
+
+        <a href="/logout">Logout</a>
+    </div>
+
+    <script>
+        document.getElementById("weatherForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            const city = document.getElementById("cityInput").value.trim();
+            const weatherResult = document.getElementById("weatherResult");
+
+            if (!city) {
+                weatherResult.innerHTML = "<p class='error'>Please enter a city name.</p>";
+                return;
+            }
+
+            weatherResult.innerHTML = "<p>Loading...</p>"; // Show loading text
+
+            try {
+                const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    weatherResult.innerHTML = `<p class='error'>${data.error}</p>`;
+                } else {
+                    weatherResult.innerHTML = `
+                        <h2>Weather in ${data.city}</h2>
+                        <p><strong>Temperature:</strong> ${data.temperature}°C</p>
+                        <p><strong>Condition:</strong> ${data.description}</p>
+                    `;
+                }
+            } catch (error) {
+                weatherResult.innerHTML = `<p class='error'>Error fetching weather</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

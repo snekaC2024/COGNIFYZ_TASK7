@@ -1,0 +1,8 @@
+{
+	"command": "node app.js",
+	"build_path": "C:\\Users\\sneka\\OneDrive\\Desktop\\INTERN\\2025\\February\\level 4-1",
+	"stack": "node18",
+	"env_variables": {},
+	"memory": 256,
+	"scripts": {}
+}
