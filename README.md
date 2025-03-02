@@ -4,5 +4,5 @@ WEATHER APP
 google cloud api used for fetching weather data
 
 ----------------
-It is fetch real time weather data
+fetch real time weather data
 ----------------
